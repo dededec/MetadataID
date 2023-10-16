@@ -5,6 +5,7 @@ import java.time.Instant;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import com.dededec.metadataid.model.dto.PageAnalysisRequest;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +22,7 @@ public class PageAnalysis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Integer id;
 
     @Column
