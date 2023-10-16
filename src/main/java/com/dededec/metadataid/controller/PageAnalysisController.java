@@ -1,10 +1,17 @@
 package com.dededec.metadataid.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dededec.metadataid.model.PageAnalysis;
@@ -24,5 +31,16 @@ public class PageAnalysisController {
         service.insertAnalysis(analysis);
         return ResponseEntity.ok().body(analysis);
     } 
+
+    @GetMapping()
+    public ResponseEntity<List<PageAnalysis>> getLatestPageAnalyses(@RequestParam int limit) {
+        List<PageAnalysis> result = new ArrayList<>();
+        return ResponseEntity.ok().body(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PageAnalysis> deleteById(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(null);
+    }
     
 }
