@@ -4,6 +4,8 @@ import java.time.Instant;
 
 import org.springframework.data.annotation.LastModifiedDate;
 
+import com.dededec.metadataid.model.dto.PageAnalysisRequest;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,5 +31,9 @@ public class PageAnalysis {
 
     public PageAnalysis(String url) {
         this.url = url;
+    }
+
+    public PageAnalysis(PageAnalysisRequest dto) {
+        this.url = dto.url;
     }
 }
