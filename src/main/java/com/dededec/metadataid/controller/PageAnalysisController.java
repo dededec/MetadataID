@@ -34,7 +34,7 @@ public class PageAnalysisController {
 
     @GetMapping()
     public ResponseEntity<List<PageAnalysis>> getLatestPageAnalyses(@RequestParam int limit) {
-        List<PageAnalysis> result = new ArrayList<>();
+        List<PageAnalysis> result = service.getLatestPageAnalyses(limit);
         return ResponseEntity.ok().body(result);
     }
 
