@@ -24,4 +24,8 @@ public class PageAnalysisService {
     public List<PageAnalysis> getLatestPageAnalyses(Integer limit) {
         return repository.findByOrderByLastModifiedDesc(PageRequest.of(0, limit));
     }
+
+    public void deleteById(Integer id) {
+        repository.deleteById(id);
+    }
 }

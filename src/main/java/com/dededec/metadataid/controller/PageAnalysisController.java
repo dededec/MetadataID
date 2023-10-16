@@ -39,6 +39,7 @@ public class PageAnalysisController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<PageAnalysis> deleteById(@PathVariable Integer id) {
+        service.deleteById(id);
         return ResponseEntity.ok().body(null);
     }
     
