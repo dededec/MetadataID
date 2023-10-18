@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dededec.metadataid.model.PageAnalysis;
 import com.dededec.metadataid.model.dto.PageAnalysisRequest;
+import com.dededec.metadataid.model.dto.PageAnalysisResponse;
+import com.dededec.metadataid.model.entity.PageAnalysis;
 import com.dededec.metadataid.service.PageAnalysisService;
 
 @RestController
@@ -27,10 +28,10 @@ public class PageAnalysisController {
     private PageAnalysisService service;
 
     @PostMapping()
-    public ResponseEntity<PageAnalysis> analyzeUrl(@RequestBody PageAnalysisRequest request) {
-        PageAnalysis analysis = new PageAnalysis(request);
-        service.insertAnalysis(analysis);
-        return ResponseEntity.ok().body(analysis);
+    public ResponseEntity<PageAnalysisResponse> analyzeUrl(@RequestBody PageAnalysisRequest request) {
+        PageAnalysis analysis = service.fetchAnalysis(request.url);
+        PageAnalysisResponse response = new PageAnalysisResponse(analysis);
+        return ResponseEntity.ok().body(response);
     } 
 
     @GetMapping()
