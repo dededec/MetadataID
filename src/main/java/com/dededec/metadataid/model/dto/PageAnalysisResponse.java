@@ -8,7 +8,6 @@ import java.util.Map;
 
 import com.dededec.metadataid.model.entity.PageAnalysis;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
