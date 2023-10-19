@@ -31,6 +31,9 @@ public class PageAnalysisController {
     @PostMapping()
     public ResponseEntity<PageAnalysisResponse> analyzeUrl(@RequestBody PageAnalysisRequest request) {
         PageAnalysis analysis = service.fetchAnalysis(request.url);
+        if(analysis == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
         PageAnalysisResponse response = new PageAnalysisResponse(analysis);
         return ResponseEntity.ok().body(response);
     } 

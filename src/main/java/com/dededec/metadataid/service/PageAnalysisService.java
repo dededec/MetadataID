@@ -34,7 +34,8 @@ public class PageAnalysisService {
             return currentAnalysis;
         } else {
             PageAnalysis analysis = analyse(url);
-            repository.save(analysis);
+            if(analysis != null)
+                repository.save(analysis);
             return analysis;
         }
     }
