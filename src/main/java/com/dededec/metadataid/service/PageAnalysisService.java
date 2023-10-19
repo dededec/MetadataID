@@ -23,6 +23,9 @@ public class PageAnalysisService {
 
     public PageAnalysis fetchAnalysis(String url) {
         url = url.trim();
+        if(!url.startsWith("https://") && !url.startsWith("http://")) {
+            url = "https://" + url;
+        }
         var optCurrentAnalysis = repository.findByUrl(url);
         if (optCurrentAnalysis.isPresent()) {
             PageAnalysis currentAnalysis = optCurrentAnalysis.get();
