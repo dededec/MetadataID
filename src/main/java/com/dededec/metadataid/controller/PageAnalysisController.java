@@ -41,6 +41,12 @@ public class PageAnalysisController {
         return ResponseEntity.ok().body(result);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PageAnalysisResponse> findAnalysisById(@PathVariable int id) {
+        PageAnalysisResponse result = service.findAnalysisById(id);
+        return ResponseEntity.ok().body(result);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<PageAnalysis> deleteById(@PathVariable Integer id) {
         service.deleteById(id);

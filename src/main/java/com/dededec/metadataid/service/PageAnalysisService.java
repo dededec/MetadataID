@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.dededec.metadataid.model.dto.AnalysisHistoryResponse;
+import com.dededec.metadataid.model.dto.PageAnalysisResponse;
 import com.dededec.metadataid.model.entity.PageAnalysis;
 import com.dededec.metadataid.repository.PageAnalysisRepository;
 
@@ -42,6 +43,12 @@ public class PageAnalysisService {
 
     public void deleteById(Integer id) {
         repository.deleteById(id);
+    }
+
+    public PageAnalysisResponse findAnalysisById(Integer id) {
+        var result = repository.findById(id);
+        PageAnalysisResponse response = result.isPresent() ? new PageAnalysisResponse(result.get()) : null;
+        return response;
     }
 
     private PageAnalysis analyse(String url) {

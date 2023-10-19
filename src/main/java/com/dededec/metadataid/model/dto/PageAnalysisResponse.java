@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PageAnalysisResponse {
 
+    private Integer id;
     private String url;
     private String title;
     private String description;
@@ -25,6 +26,7 @@ public class PageAnalysisResponse {
     private Instant lastModified;
 
     public PageAnalysisResponse(PageAnalysis analysis) {
+        this.id = analysis.getId();
         this.url = analysis.getUrl();
         this.title = analysis.getTitle();
         this.description = analysis.getDescription();
