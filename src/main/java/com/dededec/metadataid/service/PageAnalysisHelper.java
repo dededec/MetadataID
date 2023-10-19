@@ -57,7 +57,7 @@ public class PageAnalysisHelper {
     }
 
     public static Integer getImagesNumber(Document doc) {
-        return doc.select("image").size();
+        return doc.select("image").size() + doc.select("img").size();
     }
 
 }
