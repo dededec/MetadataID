@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.dededec.metadataid.model.dto.AnalysisHistoryResponse;
 import com.dededec.metadataid.model.entity.PageAnalysis;
 import com.dededec.metadataid.repository.PageAnalysisRepository;
 
@@ -20,22 +21,23 @@ public class PageAnalysisService {
     private PageAnalysisRepository repository;
 
     public PageAnalysis fetchAnalysis(String url) {
+        url = url.trim();
         var optCurrentAnalysis = repository.findByUrl(url);
-        if(optCurrentAnalysis.isPresent()) {
+        if (optCurrentAnalysis.isPresent()) {
             PageAnalysis currentAnalysis = optCurrentAnalysis.get();
             currentAnalysis.setLastModified(Instant.now());
             repository.save(currentAnalysis);
             return currentAnalysis;
-        }
-        else {
+        } else {
             PageAnalysis analysis = analyse(url);
             repository.save(analysis);
             return analysis;
-        }   
+        }
     }
 
-    public List<PageAnalysis> getLatestPageAnalyses(Integer limit) {
-        return repository.findByOrderByLastModifiedDesc(PageRequest.of(0, limit));
+    public List<AnalysisHistoryResponse> getAnalysisHistory(Integer limit) {
+        return repository.findByOrderByLastModifiedDesc(PageRequest.of(0, limit)).stream()
+                .map(analysis -> new AnalysisHistoryResponse(analysis)).toList();
     }
 
     public void deleteById(Integer id) {

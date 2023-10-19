@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dededec.metadataid.model.dto.AnalysisHistoryResponse;
 import com.dededec.metadataid.model.dto.PageAnalysisRequest;
 import com.dededec.metadataid.model.dto.PageAnalysisResponse;
 import com.dededec.metadataid.model.entity.PageAnalysis;
@@ -35,8 +36,8 @@ public class PageAnalysisController {
     } 
 
     @GetMapping()
-    public ResponseEntity<List<PageAnalysis>> getLatestPageAnalyses(@RequestParam int limit) {
-        List<PageAnalysis> result = service.getLatestPageAnalyses(limit);
+    public ResponseEntity<List<AnalysisHistoryResponse>> getLatestPageAnalyses(@RequestParam int limit) {
+        List<AnalysisHistoryResponse> result = service.getAnalysisHistory(limit);
         return ResponseEntity.ok().body(result);
     }
 
