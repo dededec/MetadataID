@@ -32,8 +32,10 @@ public class PageAnalysisResponse {
         this.description = analysis.getDescription();
         this.keywords = analysis.getKeywords();
         this.headings = new HashMap<>();
-        Arrays.asList(analysis.getHeadings().split(","))
-                .stream().forEach(head -> headings.put(head.split(":")[0], Integer.parseInt(head.split(":")[1])));
+        if (!analysis.getHeadings().isBlank()) {
+            Arrays.asList(analysis.getHeadings().split(","))
+                    .stream().forEach(head -> headings.put(head.split(":")[0], Integer.parseInt(head.split(":")[1])));
+        }
         this.html5 = analysis.getHtml5();
         this.images = analysis.getImages();
         this.lastModified = analysis.getLastModified();
