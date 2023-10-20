@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.doReturn;
-
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.dededec.metadataid.model.dto.AnalysisHistoryResponse;
-import com.dededec.metadataid.model.dto.PageAnalysisResponse;
 import com.dededec.metadataid.model.entity.PageAnalysis;
 import com.dededec.metadataid.repository.PageAnalysisRepository;
 import com.dededec.metadataid.service.PageAnalysisService;
