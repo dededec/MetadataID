@@ -1,6 +1,7 @@
 package com.dededec.metadataid.service;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -41,6 +42,9 @@ public class PageAnalysisService {
     }
 
     public List<AnalysisHistoryResponse> getAnalysisHistory(Integer limit) {
+        if(limit <= 0) {
+            return new ArrayList<>();
+        }
         return repository.findByOrderByLastModifiedDesc(PageRequest.of(0, limit)).stream()
                 .map(analysis -> new AnalysisHistoryResponse(analysis)).toList();
     }
