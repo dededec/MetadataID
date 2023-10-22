@@ -2,7 +2,9 @@ package com.dededec.metadataid.service;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
@@ -24,7 +26,7 @@ public class PageAnalysisService {
 
     public PageAnalysis fetchAnalysis(String url) {
         url = url.trim();
-        if(!url.startsWith("https://") && !url.startsWith("http://")) {
+        if (!url.startsWith("https://") && !url.startsWith("http://")) {
             url = "https://" + url;
         }
         var optCurrentAnalysis = repository.findByUrl(url);
@@ -35,14 +37,14 @@ public class PageAnalysisService {
             return currentAnalysis;
         } else {
             PageAnalysis analysis = analyse(url);
-            if(analysis != null)
+            if (analysis != null)
                 repository.save(analysis);
             return analysis;
         }
     }
 
     public List<AnalysisHistoryResponse> getAnalysisHistory(Integer limit) {
-        if(limit <= 0) {
+        if (limit <= 0) {
             return new ArrayList<>();
         }
         return repository.findByOrderByLastModifiedDesc(PageRequest.of(0, limit)).stream()
@@ -57,6 +59,28 @@ public class PageAnalysisService {
         var result = repository.findById(id);
         PageAnalysisResponse response = result.isPresent() ? new PageAnalysisResponse(result.get()) : null;
         return response;
+    }
+
+    public Map<String, Integer> getNumberOfHeadingsByType() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("h1", 0);
+        map.put("h2", 0);
+        map.put("h3", 0);
+        map.put("h4", 0);
+        map.put("h5", 0);
+        map.put("h6", 0);
+
+        List<PageAnalysis> allAnalyses = repository.findAll();
+        if (!allAnalyses.isEmpty()) {
+            allAnalyses.stream().forEach(
+                    analysis -> PageAnalysisHelper.headingsStringToMap(analysis.getHeadings())
+                            .forEach((key, value) -> {
+                                Integer current = map.get(key);
+                                map.put(key, current + value);
+                            }));
+        }
+
+        return map;
     }
 
     private PageAnalysis analyse(String url) {

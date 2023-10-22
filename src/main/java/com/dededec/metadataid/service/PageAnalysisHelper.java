@@ -1,7 +1,9 @@
 package com.dededec.metadataid.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.jsoup.nodes.Document;
@@ -26,6 +28,13 @@ public class PageAnalysisHelper {
                 .filter(str -> str.length() != 0)
                 .map(str -> str.substring(0, str.length() - 1))
                 .orElse(result);
+    }
+
+    public static Map<String, Integer> headingsStringToMap(String headings) {
+        Map<String, Integer> map = new HashMap<>();
+        Arrays.asList(headings.split(",")).stream()
+                .forEach(head -> map.put(head.split(":")[0], Integer.parseInt(head.split(":")[1])));
+        return map;
     }
 
     public static List<String> getKeywords(Document doc) {

@@ -1,6 +1,7 @@
 package com.dededec.metadataid.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,12 @@ public class PageAnalysisController {
     @GetMapping()
     public ResponseEntity<List<AnalysisHistoryResponse>> getLatestPageAnalyses(@RequestParam int limit) {
         List<AnalysisHistoryResponse> result = service.getAnalysisHistory(limit);
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/headings")
+    public ResponseEntity<Map<String, Integer>> getNumberOfHeadingsByType() {
+        Map<String, Integer> result = service.getNumberOfHeadingsByType();
         return ResponseEntity.ok().body(result);
     }
 
